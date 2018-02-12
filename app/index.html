@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Twitter Public Stream</title>
+    <link rel="stylesheet" href="./assets/css/transition.css">
+    <!-- 開発者向けvue -->
+    <script src="assets/js/vue.js"></script>
+  </head>
+  <body>
+    <ul id="timeline">
+      <tweet-list
+        v-for="(tweet, index) in tweets"
+        v-bind:tweet="tweet"
+        v-bind:index="index"
+        v-bind:key="tweet.id"
+      ></tweet-list>
+    </ul>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
