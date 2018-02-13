@@ -27,6 +27,14 @@ const createWindow = () => {
 
   // デベロッパーツール起動
   win.webContents.openDevTools()
+
+  client.get('account/settings', (error, data) => {
+    if(error) throw error
+    client.get('users/show', {screen_name: data.screen_name}, (error,profile) => {
+      if(error) throw error
+      win.webContents.send('profile', profile)
+    })
+  })
   
   // ログインしている場合、その人のツイート一覧を取得して表示
   // 30個のツイートを取得

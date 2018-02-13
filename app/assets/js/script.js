@@ -15,6 +15,10 @@ ipc.on('streamtweet', (event, data) => {
     tweetList.tweets.unshift(createItem(tweet))
 })
 
+ipc.on('profile', (event,data) => {
+  sidebar.profile = createProfile(data)
+})
+
 const tweetList = new Vue({
   el: '#timeline',
   data: {
@@ -25,6 +29,23 @@ const tweetList = new Vue({
   }
 })
 
+const sidebar = new Vue({
+  el: '#sidebar',
+  data: {
+    profile: {}
+  }
+})
+
+// プロフィール用のデータセットを作るやつ
+function createProfile(data) {
+  const obj = {}
+  obj.userName = data.name
+  obj.screenName = data.screen_name
+  obj.profileUser = data.profile_image_url_https
+  console.log(obj)
+  return obj
+}
+
 // 必要なデータセットを作るやつ
 function createItem(data) {
   const obj = {}
@@ -32,6 +53,7 @@ function createItem(data) {
   obj.screenName = data.user.screen_name
   obj.html = tweetTranser(data.text)
   obj.profileUser = data.user.profile_image_url_https
+  obj.favoriteCount = data.favorite_count
   console.log(obj)
   return obj
 }

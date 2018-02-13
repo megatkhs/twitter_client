@@ -2,22 +2,34 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Twitter Public Stream</title>
-    <link rel="stylesheet" href="./assets/css/transition.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <!-- 開発者向けvue -->
     <script src="assets/js/vue.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   </head>
   <body>
-    <ul id="timeline">
-      <li v-for="tweet in tweets">
-        <div class="tweetprofile">
-          <img v-bind:src="tweet.profileUser">
-          <a v-bind:href="'http://twitter.com/#!/' + tweet.screenName" target="_blank">@{{tweet.screenName}}</a>
+    <div class="cf">
+      <div id="sidebar">
+        <div class="account">
+          <img v-bind:src="profile.profileUser"><p>@{{ profile.screenName }}</p>
         </div>
-        <div class="tweetarea" v-html="tweet.html">
-        </div>
-      </li>
-    </ul>
+      </div>
+      <ul id="timeline">
+        <li v-for="tweet in tweets">
+          <div class="tweetprofile">
+            <img v-bind:src="tweet.profileUser">
+            <a v-bind:href="'http://twitter.com/#!/' + tweet.screenName" target="_blank" class="userName">{{tweet.userName}}<span>@{{tweet.screenName}}</span></a>
+          </div>
+          <div class="tweetarea" v-html="tweet.html">
+          </div>
+          <div class="utilityarea">
+            <span class="favoriteBtn"><i class="fas fa-star"></i>{{ tweet.favoriteCount === 0 ? null : tweet.favoriteCount }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
     <script src="assets/js/script.js"></script>
   </body>
 </html>
