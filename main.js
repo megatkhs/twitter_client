@@ -35,14 +35,15 @@ const createWindow = () => {
     win.webContents.send('tweet', tweets)
   })
 
-  // // ストリームデータを受信しレンダーに受け渡し
-  // client.stream('user', {}, stream => {
-  //   stream.on('data', data => {
-  //     const {text} = data // ツイートのテキスト
-  //     console.log(text)
-  //     win.webContents.send('streamtweet', data)
-  //   })
-  // })
+  // ストリームデータを受信しレンダーに受け渡し
+  client.stream('user', {}, stream => {
+    stream.on('data', data => {
+      console.log(data)
+      const {text} = data // ツイートのテキスト
+      console.log(text)
+      win.webContents.send('streamtweet', data)
+    })
+  })
 
   // クローズした場合の処理
   win.on('closed', () => {
