@@ -10,6 +10,7 @@ const client = new twitter({
 })
 
 const electron = require('electron')
+const ipc = electron.ipcMain
 
 // 分割代入
 // app アプリケーションをコントロールするモジュール
@@ -28,11 +29,21 @@ const createWindow = () => {
   // デベロッパーツール起動
   win.webContents.openDevTools()
 
+  // ログイン中のユーザーの情報を取得？
   client.get('account/settings', (error, data) => {
     if(error) throw error
     client.get('users/show', {screen_name: data.screen_name}, (error,profile) => {
       if(error) throw error
       win.webContents.send('profile', profile)
+    })
+  })
+
+  // レンダラープロセスからツイート内容を受け取り送信
+  ipc.on('tweetSend', (event, arg) => {
+    client.post('statuses/update', {status: arg}, (error, tweet, response) => {
+      if (!error)
+        event.sender.send('asyncReply', response)
+      console.log('メッセージ送信成功', arg)
     })
   })
   

@@ -19,10 +19,22 @@ ipc.on('profile', (event,data) => {
   sidebar.profile = createProfile(data)
 })
 
+ipc.on('asyncReply', function(response) {
+  tweetSend.tweet=''
+});
+
 const tweetSend = new Vue({
   el: '#tweetSendArea',
   data: {
     tweet: ''
+  },
+  methods: {
+    tweetSend: function() {
+      if ( this.tweet ) {
+        const tweetMessage = this.tweet
+        ipc.send('tweetSend', tweetMessage)
+      }
+    }
   }
 })
 

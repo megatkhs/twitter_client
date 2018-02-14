@@ -17,9 +17,9 @@
         </div>
       </div>
       <div id="mainArea">
-        <div id="tweetSendArea">
-          <p>ツイートを投稿する</p>
+        <div id="tweetSendArea" class="cf">
           <textarea v-model="tweet" placeholder="いまどうしてる？"></textarea>
+          <button v-on:click="tweetSend">ツイート</button>
         </div>
         <ul id="timeline">
           <li v-for="tweet in tweets">
