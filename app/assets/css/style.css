@@ -53,13 +53,21 @@ body {
   color: #e9f2ff;
 }
 
-#timeline {
+#mainArea {
   float: left;
   width: calc(100% - 200px);
   box-sizing: border-box;
   background-color: #fafafa;
-  padding: 0 20px;
   height: 100%;
+  overflow-y: auto;
+}
+
+#timeline {
+  float: left;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fafafa;
+  padding: 0 20px;
   list-style: none;
   overflow-y: auto;
 }
@@ -73,29 +81,29 @@ body {
   border-bottom: none;
 }
 
-#timeline .tweetprofile {
+#timeline .tweetProfile {
   font-size: 14px;
 }
 
-#timeline .tweetprofile img {
+#timeline .tweetProfile img {
   vertical-align: middle;
   display: inline-block;
   height: 30px;
   border-radius: 50%;
 }
 
-#timeline .tweetprofile .userName {
+#timeline .tweetProfile .userName {
   margin-left: 5px;
   vertical-align: middle;
   display: inline-block;
 }
 
-#timeline .tweetprofile .userName span {
+#timeline .tweetProfile .userName span {
   margin-left: 5px;
   display: inline-block;
 }
 
-#timeline .tweetarea {
+#timeline .tweetArea {
   box-sizing: border-box;
   padding: 10px 20px 0;
   font-size: 15px;
@@ -106,14 +114,11 @@ body {
     min-width: 400px;
   }
   #sidebar {
-    width: 60px;
+    width: 62px;
   }
 
-  #timeline {
-    width: calc(100% - 60px)
-  }
-  #sidebar .account {
-    margin-left: 2px;
+  #mainArea {
+    width: calc(100% - 62px)
   }
   #sidebar .account p {
     display: none;

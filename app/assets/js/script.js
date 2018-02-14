@@ -19,6 +19,13 @@ ipc.on('profile', (event,data) => {
   sidebar.profile = createProfile(data)
 })
 
+const tweetSend = new Vue({
+  el: '#tweetSendArea',
+  data: {
+    tweet: ''
+  }
+})
+
 const tweetList = new Vue({
   el: '#timeline',
   data: {

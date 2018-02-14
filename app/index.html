@@ -16,19 +16,25 @@
           <img v-bind:src="profile.profileUser"><p>@{{ profile.screenName }}</p>
         </div>
       </div>
-      <ul id="timeline">
-        <li v-for="tweet in tweets">
-          <div class="tweetprofile">
-            <img v-bind:src="tweet.profileUser">
-            <a v-bind:href="'http://twitter.com/#!/' + tweet.screenName" target="_blank" class="userName">{{tweet.userName}}<span>@{{tweet.screenName}}</span></a>
-          </div>
-          <div class="tweetarea" v-html="tweet.html">
-          </div>
-          <div class="utilityarea">
-            <span class="favoriteBtn"><i class="fas fa-star"></i>{{ tweet.favoriteCount === 0 ? null : tweet.favoriteCount }}</span>
-          </div>
-        </li>
-      </ul>
+      <div id="mainArea">
+        <div id="tweetSendArea">
+          <p>ツイートを投稿する</p>
+          <textarea v-model="tweet" placeholder="いまどうしてる？"></textarea>
+        </div>
+        <ul id="timeline">
+          <li v-for="tweet in tweets">
+            <div class="tweetProfile">
+              <img v-bind:src="tweet.profileUser">
+              <a v-bind:href="'http://twitter.com/#!/' + tweet.screenName" target="_blank" class="userName">{{tweet.userName}}<span>@{{tweet.screenName}}</span></a>
+            </div>
+            <div class="tweetArea" v-html="tweet.html">
+            </div>
+            <div class="utilityArea">
+              <span class="favoriteBtn"><i class="fas fa-star"></i>{{ tweet.favoriteCount === 0 ? null : tweet.favoriteCount }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
     <script src="assets/js/script.js"></script>
   </body>
