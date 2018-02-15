@@ -68,9 +68,15 @@ function createProfile(data) {
 // 必要なデータセットを作るやつ
 function createItem(data) {
   const obj = {}
+  let media
+  console.log(data)
   obj.userName = data.user.name
   obj.screenName = data.user.screen_name
-  obj.html = tweetTranser(data.text)
+  if ( data.entities.media )
+    media = data.entities.media
+  else
+    media = null
+  obj.html = tweetTranser(data.text , media)
   obj.profileUser = data.user.profile_image_url_https
   obj.favoriteCount = data.favorite_count
   console.log(obj)
@@ -80,7 +86,7 @@ function createItem(data) {
 // テキストをHTMLに変換するやつ
 // RTの場合は.retweetで囲う
 // ハッシュタグ、@ユーザー名、URLはリンクに置き換える
-function tweetTranser(t) {
+function tweetTranser(t, m) {
   let text = t
   const twitterPath = 'http://twitter.com/#!/'
 
@@ -88,7 +94,7 @@ function tweetTranser(t) {
   const patternHash = /[#＃]+([^#＃、。\s<>]*)/gi
   const patternName = /@+([\w]*)/gi
   const patternRT = /RT +(@[\w]*)+:[\s]/gi
-  const patternLink = /(http(s)?:\/\/)?([\w]+\.)+[\w-]+(\/[\w-.\/?%&=]*)?/gi
+  const patternLink = /http(s)?:\/\/+([\w]+\.)+[\w-]+(\/[\w-.\/?%&=]*)?/gi
 
   // 改行する
   text = text.replace( /\r?\n/g, '<br>' )
@@ -126,9 +132,12 @@ function tweetTranser(t) {
       text = text.replace( matchesName[i], '<a href="' + twitterPath + matchesName[i].slice(1) + '" target="_blank" class="twitter-intext-link">' + matchesName[i] + '</a>' )
     }
   }
+  
+  if( m !== null )
+    text = text + ('<img src="' + m[0].media_url + '">')
 
 
-  // console.log('生成したHTML:',text)
+  console.log('生成したHTML:',text)
 
   return text
 }

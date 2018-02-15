@@ -49,13 +49,13 @@ const createWindow = () => {
   
   // ログインしている場合、その人のツイート一覧を取得して表示
   // 30個のツイートを取得
-  client.get('statuses/home_timeline', {count: 30}, (error, tweets) => {
+  client.get('statuses/home_timeline', {count: 30, include_entities: true}, (error, tweets) => {
     if(error) throw error
     win.webContents.send('tweet', tweets)
   })
 
   // ストリームデータを受信しレンダーに受け渡し
-  client.stream('user', {}, stream => {
+  client.stream('user', {include_entities: true}, stream => {
     stream.on('data', data => {
       console.log(data)
       const {text} = data // ツイートのテキスト
